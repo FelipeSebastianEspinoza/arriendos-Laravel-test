@@ -75,9 +75,13 @@ class CategoriaController extends Controller
      * @param  \App\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Categoria $categoria)
+    public function update(Request $request, $id)
     {
-        //
+        $categoria = Categoria::find($id);
+        $categoria->name = $request->name;
+        $categoria->description = $request->description;
+        $categoria->save();
+        return $categoria;
     }
 
     /**
@@ -86,8 +90,11 @@ class CategoriaController extends Controller
      * @param  \App\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Categoria $categoria)
+    public function destroy(Request $request, $id)
     {
-        //
+        $categoria = Categoria::find($id);
+        $categoria->delete = '1';
+        $categoria->save();
+        
     }
 }
