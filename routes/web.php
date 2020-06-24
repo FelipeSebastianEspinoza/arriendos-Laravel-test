@@ -11,4 +11,9 @@ Auth::routes();
 
 Route::resource('/notas', 'NotaController')->middleware('auth');
 
+Route::resource('/categorias', 'CategoriaController')->middleware('auth');
+
+
+
+
 Route::get('/home', 'HomeController@index')->name('home');
