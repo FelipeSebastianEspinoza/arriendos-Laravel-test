@@ -14,16 +14,24 @@
                 </button>
             </h3>
 
-            <table class="table table-striped table-dark table-sm">
+            <table id="myTable" class="table table-striped table-dark table-sm">
                 <!-- table-responsive-sm -->
                 <thead>
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">
-                            <a @click="ordenarTabla('name')" style="cursor:pointer;">Nombre</a>
+                            <a
+                                @click="ordenarTabla('name')"
+                                style="cursor:pointer;"
+                                >Nombre</a
+                            >
                         </th>
                         <th scope="col">
-                            <a @click="ordenarTabla('description')" style="cursor:pointer;">Description</a>
+                            <a
+                                @click="ordenarTabla('description')"
+                                style="cursor:pointer;"
+                                >Description</a
+                            >
                         </th>
                         <th scope="col" width="100px">Acciones</th>
                     </tr>
@@ -239,6 +247,36 @@
                 </div>
             </div>
         </div>
+
+   <div id="app">
+   <div class="panel panel-default">
+   <div class="panel-heading">
+         <strong> All Resources</strong></div>
+            <div class="row">
+                 <div class="search-wrapper panel-heading col-sm-12">
+                     <input class="form-control" type="text" v-model="searchQuery" placeholder="Search" />
+                </div>                        
+            </div>
+        <div class="table-responsive">
+            <table v-if="resources.length" class="table">
+                <thead>
+                    <tr>
+                         <th>Resource</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(item, index) in resultQuery" :key="index">
+                        <td><a v-bind:href="item.uri" target="_blank">{{item.title}}</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+   </div>
+   </div>
+
+<!-- -->
+
+
     </div>
 </template>
 
@@ -246,6 +284,7 @@
 export default {
     data() {
         return {
+            searchQuery: null,
             categorias: [],
             categoria: { name: "", description: "" },
             //validaciones vars
@@ -254,7 +293,22 @@ export default {
             descriptionValid: false,
             descriptionInvalid: false,
             //ordenar tabla
-            nameReverse: false
+            nameReverse: false,
+
+            ///
+ searchQuery: null,
+        resources:[
+            {title:"ABE Attendance",uri:"aaaa.com",category:"a",icon:null},
+            {title:"Accounting Services",uri:"aaaa.com",category:"a",icon:null},
+            {title:"Administration",uri:"aaaa.com",category:"a",icon:null},
+            {title:"Advanced Student Lookup",uri:"bbbb.com",category:"b",icon:null},
+            {title:"Art & Sciences",uri:"bbbb.com",category:"b",icon:null},
+            {title:"Auxiliares Services",uri:"bbbb.com",category:"b",icon:null},
+            {title:"Basic Skills",uri:"cccc.com",category:"c",icon:null},
+            {title:"Board of Trustees",uri:"dddd.com",category:"d",icon:null}
+        ]
+
+
         };
     },
     created() {
@@ -427,9 +481,19 @@ export default {
                         }
                     }
                 });
-                 this.nameReverse = false;
+                this.nameReverse = false;
             }
         }
+    },
+    computed: { resultQuery(){
+      if(this.searchQuery){
+      return this.resources.filter((item)=>{
+        return this.searchQuery.toLowerCase().split(' ').every(v => item.title.toLowerCase().includes(v))
+      })
+      }else{
+        return this.resources;
+      }
     }
+  } 
 };
 </script>
