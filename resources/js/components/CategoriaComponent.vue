@@ -108,7 +108,7 @@
                                 <!--     <h3>Agregar categoría</h3>  -->
 
                                 <!-- quitar o reemplazar esto  -->
-                   <p v-if="errors.length">
+                                <p v-if="errors.length">
                                  <b>Por favor, corrija el(los) siguiente(s) error(es):</b>
                                 <ul>
                                  <li v-for="error in errors" :key="error">{{ error }}</li>
@@ -296,6 +296,7 @@ export default {
             this.categoria = { name: "", description: "" };
         },
         limpiarModal() {
+            this.categoria = { name: "", description: "" };
             this.errors = [];
         }
     }

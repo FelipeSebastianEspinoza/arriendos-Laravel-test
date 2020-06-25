@@ -2223,6 +2223,10 @@ __webpack_require__.r(__webpack_exports__);
       };
     },
     limpiarModal: function limpiarModal() {
+      this.categoria = {
+        name: "",
+        description: ""
+      };
       this.errors = [];
     }
   }
