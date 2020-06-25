@@ -32,7 +32,7 @@
                         <td>
                             <button
                                 class="btn btn-warning btn-sm"
-                                @click="editarFormulario(item)"
+                                @click="editarFormulario(item), resetModal()"
                             >
                                 <svg
                                     class="bi bi-pencil-square"
@@ -105,24 +105,20 @@
                         </div>
                         <div class="modal-body">
                             <form @submit.prevent="agregar">
-                                <!--     <h3>Agregar categoría</h3>  -->
-
-                                <!-- quitar o reemplazar esto  -->
-                                <p v-if="errors.length">
-                                 <b>Por favor, corrija el(los) siguiente(s) error(es):</b>
-                                <ul>
-                                 <li v-for="error in errors" :key="error">{{ error }}</li>
-                                </ul>
-                                </p>
-                                <!-- quitar o reemplazar esto  -->
-
                                 <h5>Nombre:</h5>
                                 <input
                                     type="text"
                                     class="form-control mb-2"
                                     placeholder="Escriba un nombre..."
                                     v-model="categoria.name"
+                                    v-bind:class="{
+                                        'is-valid': nameValid,
+                                        'is-invalid': nameInvalid
+                                    }"
                                 />
+                                <p class="text-danger" v-if="nameInvalid">
+                                    Escriba un nombre válido
+                                </p>
 
                                 <h5>Descripción:</h5>
 
@@ -131,8 +127,17 @@
                                     class="form-control mb-2"
                                     placeholder="Escriba una descripción..."
                                     v-model="categoria.description"
+                                    v-bind:class="{
+                                        'is-valid': descriptionValid,
+                                        'is-invalid': descriptionInvalid
+                                    }"
                                 />
-
+                                <p
+                                    class="text-danger"
+                                    v-if="descriptionInvalid"
+                                >
+                                    Escriba un texto más extenso
+                                </p>
                                 <div class="modal-footer">
                                     <button
                                         type="button"
@@ -188,14 +193,31 @@
                                     class="form-control mb-2"
                                     placeholder="Escriba un nombre..."
                                     v-model="categoria.name"
+                                    v-bind:class="{
+                                        'is-valid': nameValid,
+                                        'is-invalid': nameInvalid
+                                    }"
                                 />
+                                <p class="text-danger" v-if="nameInvalid">
+                                    Escriba un nombre válido
+                                </p>
                                 <h5>Descripción</h5>
                                 <input
                                     type="text"
                                     class="form-control mb-2"
                                     placeholder="Escriba una descripción..."
                                     v-model="categoria.description"
+                                    v-bind:class="{
+                                        'is-valid': descriptionValid,
+                                        'is-invalid': descriptionInvalid
+                                    }"
                                 />
+                                <p
+                                    class="text-danger"
+                                    v-if="descriptionInvalid"
+                                >
+                                    Escriba un texto más extenso
+                                </p>
                                 <button class="btn btn-warning" type="submit">
                                     Editar
                                 </button>
@@ -220,9 +242,13 @@
 export default {
     data() {
         return {
-            errors: [],
             categorias: [],
-            categoria: { name: "", description: "" }
+            categoria: { name: "", description: "" },
+            //validaciones vars
+            nameValid: false,
+            nameInvalid: false,
+            descriptionValid: false,
+            descriptionInvalid: false
         };
     },
     created() {
@@ -232,20 +258,35 @@ export default {
     },
     methods: {
         agregar() {
-            this.errors = [];
-
+            var errors = [];
             if (!this.categoria.name) {
-                this.errors.push("El nombre es obligatorio.");
-                return;
+                this.nameValid = false;
+                this.nameInvalid = true;
+                errors.push("0");
+            } else {
+                this.nameValid = true;
+                this.nameInvalid = false;
             }
-            if (!this.categoria.name) {
-                this.errors.push("El nombre es obligatorio.");
+            if (!this.categoria.description) {
+                this.descriptionValid = false;
+                this.descriptionInvalid = true;
+                errors.push("0");
+                //   } else if (!this.validEmail(this.categoria.description)) {
+            } else if (this.categoria.description.length < 5) {
+                this.descriptionValid = false;
+                this.descriptionInvalid = true;
+                errors.push("0");
+            } else {
+                this.descriptionValid = true;
+                this.descriptionInvalid = false;
+            }
+            if (errors.length) {
                 return;
             }
 
             const categoriaNueva = this.categoria;
             this.categoria = { name: "", description: "" };
-            this.errors = [];
+
             axios.post("/categorias", categoriaNueva).then(res => {
                 $("#create").modal("toggle");
                 const categoriaServidor = res.data;
@@ -274,11 +315,30 @@ export default {
                 description: categoria.description
             };
 
-            if (
-                this.categoria.name.trim() === "" ||
-                this.categoria.description.trim() === ""
-            ) {
-                alert("Debes completar todos los campos antes de guardar");
+            var errors = [];
+            if (this.categoria.name.trim() === "") {
+                this.nameValid = false;
+                this.nameInvalid = true;
+                errors.push("0");
+            } else {
+                this.nameValid = true;
+                this.nameInvalid = false;
+            }
+            if (this.categoria.description.trim() === "") {
+                this.descriptionValid = false;
+                this.descriptionInvalid = true;
+                errors.push("0");
+                //   } else if (!this.validEmail(this.categoria.description)) {
+            } else if (this.categoria.description.length < 5) {
+                this.descriptionValid = false;
+                this.descriptionInvalid = true;
+                errors.push("0");
+            } else {
+                this.descriptionValid = true;
+                this.descriptionInvalid = false;
+            }
+
+            if (errors.length) {
                 return;
             }
 
@@ -296,8 +356,21 @@ export default {
             this.categoria = { name: "", description: "" };
         },
         limpiarModal() {
+            this.nameValid = false;
+            this.nameInvalid = false;
+            this.descriptionValid = false;
+            this.descriptionInvalid = false;
             this.categoria = { name: "", description: "" };
-            this.errors = [];
+        },
+        resetModal() {
+            this.nameValid = false;
+            this.nameInvalid = false;
+            this.descriptionValid = false;
+            this.descriptionInvalid = false;
+        },
+        validEmail: function(email) {
+            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
         }
     }
 };

@@ -2126,15 +2126,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      errors: [],
       categorias: [],
       categoria: {
         name: "",
         description: ""
-      }
+      },
+      //validaciones vars
+      nameValid: false,
+      nameInvalid: false,
+      descriptionValid: false,
+      descriptionInvalid: false
     };
   },
   created: function created() {
@@ -2148,15 +2174,31 @@ __webpack_require__.r(__webpack_exports__);
     agregar: function agregar() {
       var _this2 = this;
 
-      this.errors = [];
+      var errors = [];
 
       if (!this.categoria.name) {
-        this.errors.push("El nombre es obligatorio.");
-        return;
+        this.nameValid = false;
+        this.nameInvalid = true;
+        errors.push("0");
+      } else {
+        this.nameValid = true;
+        this.nameInvalid = false;
       }
 
-      if (!this.categoria.name) {
-        this.errors.push("El nombre es obligatorio.");
+      if (!this.categoria.description) {
+        this.descriptionValid = false;
+        this.descriptionInvalid = true;
+        errors.push("0"); //   } else if (!this.validEmail(this.categoria.description)) {
+      } else if (this.categoria.description.length < 5) {
+        this.descriptionValid = false;
+        this.descriptionInvalid = true;
+        errors.push("0");
+      } else {
+        this.descriptionValid = true;
+        this.descriptionInvalid = false;
+      }
+
+      if (errors.length) {
         return;
       }
 
@@ -2165,7 +2207,6 @@ __webpack_require__.r(__webpack_exports__);
         name: "",
         description: ""
       };
-      this.errors = [];
       axios.post("/categorias", categoriaNueva).then(function (res) {
         $("#create").modal("toggle");
         var categoriaServidor = res.data;
@@ -2197,9 +2238,31 @@ __webpack_require__.r(__webpack_exports__);
         name: categoria.name,
         description: categoria.description
       };
+      var errors = [];
 
-      if (this.categoria.name.trim() === "" || this.categoria.description.trim() === "") {
-        alert("Debes completar todos los campos antes de guardar");
+      if (this.categoria.name.trim() === "") {
+        this.nameValid = false;
+        this.nameInvalid = true;
+        errors.push("0");
+      } else {
+        this.nameValid = true;
+        this.nameInvalid = false;
+      }
+
+      if (this.categoria.description.trim() === "") {
+        this.descriptionValid = false;
+        this.descriptionInvalid = true;
+        errors.push("0"); //   } else if (!this.validEmail(this.categoria.description)) {
+      } else if (this.categoria.description.length < 5) {
+        this.descriptionValid = false;
+        this.descriptionInvalid = true;
+        errors.push("0");
+      } else {
+        this.descriptionValid = true;
+        this.descriptionInvalid = false;
+      }
+
+      if (errors.length) {
         return;
       }
 
@@ -2223,11 +2286,24 @@ __webpack_require__.r(__webpack_exports__);
       };
     },
     limpiarModal: function limpiarModal() {
+      this.nameValid = false;
+      this.nameInvalid = false;
+      this.descriptionValid = false;
+      this.descriptionInvalid = false;
       this.categoria = {
         name: "",
         description: ""
       };
-      this.errors = [];
+    },
+    resetModal: function resetModal() {
+      this.nameValid = false;
+      this.nameInvalid = false;
+      this.descriptionValid = false;
+      this.descriptionInvalid = false;
+    },
+    validEmail: function validEmail(email) {
+      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
     }
   }
 });
@@ -37983,7 +38059,7 @@ var render = function() {
                     staticClass: "btn btn-warning btn-sm",
                     on: {
                       click: function($event) {
-                        return _vm.editarFormulario(item)
+                        _vm.editarFormulario(item), _vm.resetModal()
                       }
                     }
                   },
@@ -38103,26 +38179,6 @@ var render = function() {
                       }
                     },
                     [
-                      _vm.errors.length
-                        ? _c("p", [
-                            _c("b", [
-                              _vm._v(
-                                "Por favor, corrija el(los) siguiente(s) error(es):"
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "ul",
-                              _vm._l(_vm.errors, function(error) {
-                                return _c("li", { key: error }, [
-                                  _vm._v(_vm._s(error))
-                                ])
-                              }),
-                              0
-                            )
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
                       _c("h5", [_vm._v("Nombre:")]),
                       _vm._v(" "),
                       _c("input", {
@@ -38135,6 +38191,10 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control mb-2",
+                        class: {
+                          "is-valid": _vm.nameValid,
+                          "is-invalid": _vm.nameInvalid
+                        },
                         attrs: {
                           type: "text",
                           placeholder: "Escriba un nombre..."
@@ -38150,6 +38210,14 @@ var render = function() {
                         }
                       }),
                       _vm._v(" "),
+                      _vm.nameInvalid
+                        ? _c("p", { staticClass: "text-danger" }, [
+                            _vm._v(
+                              "\n                                Escriba un nombre válido\n                            "
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
                       _c("h5", [_vm._v("Descripción:")]),
                       _vm._v(" "),
                       _c("input", {
@@ -38162,6 +38230,10 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control mb-2",
+                        class: {
+                          "is-valid": _vm.descriptionValid,
+                          "is-invalid": _vm.descriptionInvalid
+                        },
                         attrs: {
                           type: "text",
                           placeholder: "Escriba una descripción..."
@@ -38180,6 +38252,14 @@ var render = function() {
                           }
                         }
                       }),
+                      _vm._v(" "),
+                      _vm.descriptionInvalid
+                        ? _c("p", { staticClass: "text-danger" }, [
+                            _vm._v(
+                              "\n                                Escriba un texto más extenso\n                            "
+                            )
+                          ])
+                        : _vm._e(),
                       _vm._v(" "),
                       _vm._m(2)
                     ]
@@ -38266,6 +38346,10 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control mb-2",
+                        class: {
+                          "is-valid": _vm.nameValid,
+                          "is-invalid": _vm.nameInvalid
+                        },
                         attrs: {
                           type: "text",
                           placeholder: "Escriba un nombre..."
@@ -38281,6 +38365,14 @@ var render = function() {
                         }
                       }),
                       _vm._v(" "),
+                      _vm.nameInvalid
+                        ? _c("p", { staticClass: "text-danger" }, [
+                            _vm._v(
+                              "\n                                Escriba un nombre válido\n                            "
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
                       _c("h5", [_vm._v("Descripción")]),
                       _vm._v(" "),
                       _c("input", {
@@ -38293,6 +38385,10 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control mb-2",
+                        class: {
+                          "is-valid": _vm.descriptionValid,
+                          "is-invalid": _vm.descriptionInvalid
+                        },
                         attrs: {
                           type: "text",
                           placeholder: "Escriba una descripción..."
@@ -38311,6 +38407,14 @@ var render = function() {
                           }
                         }
                       }),
+                      _vm._v(" "),
+                      _vm.descriptionInvalid
+                        ? _c("p", { staticClass: "text-danger" }, [
+                            _vm._v(
+                              "\n                                Escriba un texto más extenso\n                            "
+                            )
+                          ])
+                        : _vm._e(),
                       _vm._v(" "),
                       _c(
                         "button",
