@@ -2151,6 +2151,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2163,7 +2164,9 @@ __webpack_require__.r(__webpack_exports__);
       nameValid: false,
       nameInvalid: false,
       descriptionValid: false,
-      descriptionInvalid: false
+      descriptionInvalid: false,
+      //ordenar tabla
+      nameReverse: false
     };
   },
   created: function created() {
@@ -2309,31 +2312,61 @@ __webpack_require__.r(__webpack_exports__);
       return re.test(email);
     },
     ordenarTabla: function ordenarTabla(atributo) {
-      this.categorias.sort(function (a, b) {
-        if (atributo == "name") {
-          var x = a.name.toLowerCase();
-          var y = b.name.toLowerCase();
+      if (this.nameReverse == false) {
+        this.categorias.sort(function (a, b) {
+          if (atributo == "name") {
+            var x = a.name.toLowerCase();
+            var y = b.name.toLowerCase();
 
-          if (x < y) {
-            return -1;
-          }
+            if (x < y) {
+              return -1;
+            }
 
-          if (x > y) {
-            return 1;
-          }
-        } else if (atributo == "description") {
-          var x = a.description.toLowerCase();
-          var y = b.description.toLowerCase();
+            if (x > y) {
+              return 1;
+            }
+          } else if (atributo == "description") {
+            var x = a.description.toLowerCase();
+            var y = b.description.toLowerCase();
 
-          if (x < y) {
-            return -1;
-          }
+            if (x < y) {
+              return -1;
+            }
 
-          if (x > y) {
-            return 1;
+            if (x > y) {
+              return 1;
+            }
           }
-        }
-      });
+        });
+        this.nameReverse = true;
+      } else {
+        this.categorias.sort(function (a, b) {
+          if (atributo == "name") {
+            var x = a.name.toLowerCase();
+            var y = b.name.toLowerCase();
+
+            if (x > y) {
+              return -1;
+            }
+
+            if (x < y) {
+              return 1;
+            }
+          } else if (atributo == "description") {
+            var x = a.description.toLowerCase();
+            var y = b.description.toLowerCase();
+
+            if (x > y) {
+              return -1;
+            }
+
+            if (x < y) {
+              return 1;
+            }
+          }
+        });
+        this.nameReverse = false;
+      }
     }
   }
 });
@@ -38078,6 +38111,7 @@ var render = function() {
               _c(
                 "a",
                 {
+                  staticStyle: { cursor: "pointer" },
                   on: {
                     click: function($event) {
                       return _vm.ordenarTabla("name")
@@ -38092,13 +38126,14 @@ var render = function() {
               _c(
                 "a",
                 {
+                  staticStyle: { cursor: "pointer" },
                   on: {
                     click: function($event) {
                       return _vm.ordenarTabla("description")
                     }
                   }
                 },
-                [_vm._v("Nombre")]
+                [_vm._v("Description")]
               )
             ]),
             _vm._v(" "),

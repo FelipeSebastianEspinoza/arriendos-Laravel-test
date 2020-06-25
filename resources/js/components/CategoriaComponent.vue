@@ -20,9 +20,11 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">
-                            <a @click="ordenarTabla('name')">Nombre</a>
+                            <a @click="ordenarTabla('name')" style="cursor:pointer;">Nombre</a>
                         </th>
-                        <th scope="col">  <a @click="ordenarTabla('description')">Nombre</a></th>
+                        <th scope="col">
+                            <a @click="ordenarTabla('description')" style="cursor:pointer;">Description</a>
+                        </th>
                         <th scope="col" width="100px">Acciones</th>
                     </tr>
                 </thead>
@@ -237,7 +239,6 @@
                 </div>
             </div>
         </div>
-  
     </div>
 </template>
 
@@ -251,7 +252,9 @@ export default {
             nameValid: false,
             nameInvalid: false,
             descriptionValid: false,
-            descriptionInvalid: false
+            descriptionInvalid: false,
+            //ordenar tabla
+            nameReverse: false
         };
     },
     created() {
@@ -377,27 +380,55 @@ export default {
             return re.test(email);
         },
         ordenarTabla(atributo) {
-            this.categorias.sort(function(a, b) {
-                if (atributo == "name") {
-                    var x = a.name.toLowerCase();
-                    var y = b.name.toLowerCase();
-                    if (x < y) {
-                        return -1;
+            if (this.nameReverse == false) {
+                this.categorias.sort(function(a, b) {
+                    if (atributo == "name") {
+                        var x = a.name.toLowerCase();
+                        var y = b.name.toLowerCase();
+
+                        if (x < y) {
+                            return -1;
+                        }
+                        if (x > y) {
+                            return 1;
+                        }
+                    } else if (atributo == "description") {
+                        var x = a.description.toLowerCase();
+                        var y = b.description.toLowerCase();
+                        if (x < y) {
+                            return -1;
+                        }
+                        if (x > y) {
+                            return 1;
+                        }
                     }
-                    if (x > y) {
-                        return 1;
+                });
+                this.nameReverse = true;
+            } else {
+                this.categorias.sort(function(a, b) {
+                    if (atributo == "name") {
+                        var x = a.name.toLowerCase();
+                        var y = b.name.toLowerCase();
+
+                        if (x > y) {
+                            return -1;
+                        }
+                        if (x < y) {
+                            return 1;
+                        }
+                    } else if (atributo == "description") {
+                        var x = a.description.toLowerCase();
+                        var y = b.description.toLowerCase();
+                        if (x > y) {
+                            return -1;
+                        }
+                        if (x < y) {
+                            return 1;
+                        }
                     }
-                } else if (atributo == "description") {
-                    var x = a.description.toLowerCase();
-                    var y = b.description.toLowerCase();
-                    if (x < y) {
-                        return -1;
-                    }
-                    if (x > y) {
-                        return 1;
-                    }
-                }
-            });
+                });
+                 this.nameReverse = false;
+            }
         }
     }
 };
