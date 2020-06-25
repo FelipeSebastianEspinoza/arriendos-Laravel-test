@@ -2185,6 +2185,81 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -38139,7 +38214,7 @@ var render = function() {
   return _c("div", [
     _c("div", [
       _c("h3", [
-        _vm._v("\n            Título\n            "),
+        _vm._v("\n                Título\n                "),
         _c(
           "button",
           {
@@ -38151,7 +38226,7 @@ var render = function() {
             },
             on: { click: _vm.limpiarModal }
           },
-          [_vm._v("\n                Nueva categoría\n            ")]
+          [_vm._v("\n                    Nueva categoría\n                ")]
         )
       ]),
       _vm._v(" "),
@@ -38221,7 +38296,7 @@ var render = function() {
                       _vm.nameInvalid
                         ? _c("p", { staticClass: "text-danger" }, [
                             _vm._v(
-                              "\n                                Escriba un nombre válido\n                            "
+                              "\n                                    Escriba un nombre válido\n                                "
                             )
                           ])
                         : _vm._e(),
@@ -38264,7 +38339,7 @@ var render = function() {
                       _vm.descriptionInvalid
                         ? _c("p", { staticClass: "text-danger" }, [
                             _vm._v(
-                              "\n                                Escriba un texto más extenso\n                            "
+                              "\n                                    Escriba un texto más extenso\n                                "
                             )
                           ])
                         : _vm._e(),
@@ -38306,7 +38381,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                            Editar categoría\n                        "
+                        "\n                                Editar categoría\n                            "
                       )
                     ]
                   ),
@@ -38376,7 +38451,7 @@ var render = function() {
                       _vm.nameInvalid
                         ? _c("p", { staticClass: "text-danger" }, [
                             _vm._v(
-                              "\n                                Escriba un nombre válido\n                            "
+                              "\n                                    Escriba un nombre válido\n                                "
                             )
                           ])
                         : _vm._e(),
@@ -38419,7 +38494,7 @@ var render = function() {
                       _vm.descriptionInvalid
                         ? _c("p", { staticClass: "text-danger" }, [
                             _vm._v(
-                              "\n                                Escriba un texto más extenso\n                            "
+                              "\n                                    Escriba un texto más extenso\n                                "
                             )
                           ])
                         : _vm._e(),
@@ -38432,7 +38507,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                                Editar\n                            "
+                            "\n                                    Editar\n                                "
                           )
                         ]
                       ),
@@ -38446,7 +38521,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                                Cancelar\n                            "
+                            "\n                                    Cancelar\n                                "
                           )
                         ]
                       )
@@ -38661,7 +38736,7 @@ var staticRenderFns = [
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
         [
           _vm._v(
-            "\n                            Añadir categoría\n                        "
+            "\n                                Añadir categoría\n                            "
           )
         ]
       ),
@@ -38693,7 +38768,7 @@ var staticRenderFns = [
         },
         [
           _vm._v(
-            "\n                                    Cerrar\n                                "
+            "\n                                        Cerrar\n                                    "
           )
         ]
       ),
@@ -38703,7 +38778,7 @@ var staticRenderFns = [
         { staticClass: "btn btn-primary", attrs: { type: "submit" } },
         [
           _vm._v(
-            "\n                                    Agregar\n                                "
+            "\n                                        Agregar\n                                    "
           )
         ]
       )
