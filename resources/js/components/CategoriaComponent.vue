@@ -8,6 +8,7 @@
                     class="btn btn-primary float-right mb-2"
                     data-toggle="modal"
                     data-target="#create"
+                    @click="limpiarModal"
                 >
                     Nueva categoría
                 </button>
@@ -105,6 +106,16 @@
                         <div class="modal-body">
                             <form @submit.prevent="agregar">
                                 <!--     <h3>Agregar categoría</h3>  -->
+
+                                <!-- quitar o reemplazar esto  -->
+                   <p v-if="errors.length">
+                                 <b>Por favor, corrija el(los) siguiente(s) error(es):</b>
+                                <ul>
+                                 <li v-for="error in errors" :key="error">{{ error }}</li>
+                                </ul>
+                                </p>
+                                <!-- quitar o reemplazar esto  -->
+
                                 <h5>Nombre:</h5>
                                 <input
                                     type="text"
@@ -112,7 +123,9 @@
                                     placeholder="Escriba un nombre..."
                                     v-model="categoria.name"
                                 />
+
                                 <h5>Descripción:</h5>
+
                                 <input
                                     type="text"
                                     class="form-control mb-2"
@@ -207,6 +220,7 @@
 export default {
     data() {
         return {
+            errors: [],
             categorias: [],
             categoria: { name: "", description: "" }
         };
@@ -218,17 +232,20 @@ export default {
     },
     methods: {
         agregar() {
-            if (
-                this.categoria.name.trim() === "" ||
-                this.categoria.description.trim() === ""
-            ) {
-                alert("Debes completar todos los campos antes de guardar");
+            this.errors = [];
+
+            if (!this.categoria.name) {
+                this.errors.push("El nombre es obligatorio.");
+                return;
+            }
+            if (!this.categoria.name) {
+                this.errors.push("El nombre es obligatorio.");
                 return;
             }
 
             const categoriaNueva = this.categoria;
             this.categoria = { name: "", description: "" };
-
+            this.errors = [];
             axios.post("/categorias", categoriaNueva).then(res => {
                 $("#create").modal("toggle");
                 const categoriaServidor = res.data;
@@ -256,6 +273,15 @@ export default {
                 name: categoria.name,
                 description: categoria.description
             };
+
+            if (
+                this.categoria.name.trim() === "" ||
+                this.categoria.description.trim() === ""
+            ) {
+                alert("Debes completar todos los campos antes de guardar");
+                return;
+            }
+
             axios.put(`/categorias/${categoria.id}`, params).then(res => {
                 const index = this.categorias.findIndex(
                     item => item.id === categoria.id
@@ -268,6 +294,9 @@ export default {
         cancelarEdicion() {
             $("#edit").modal("toggle");
             this.categoria = { name: "", description: "" };
+        },
+        limpiarModal() {
+            this.errors = [];
         }
     }
 };

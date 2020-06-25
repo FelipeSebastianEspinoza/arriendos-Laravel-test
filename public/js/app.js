@@ -2113,9 +2113,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      errors: [],
       categorias: [],
       categoria: {
         name: "",
@@ -2134,8 +2148,15 @@ __webpack_require__.r(__webpack_exports__);
     agregar: function agregar() {
       var _this2 = this;
 
-      if (this.categoria.name.trim() === "" || this.categoria.description.trim() === "") {
-        alert("Debes completar todos los campos antes de guardar");
+      this.errors = [];
+
+      if (!this.categoria.name) {
+        this.errors.push("El nombre es obligatorio.");
+        return;
+      }
+
+      if (!this.categoria.name) {
+        this.errors.push("El nombre es obligatorio.");
         return;
       }
 
@@ -2144,6 +2165,7 @@ __webpack_require__.r(__webpack_exports__);
         name: "",
         description: ""
       };
+      this.errors = [];
       axios.post("/categorias", categoriaNueva).then(function (res) {
         $("#create").modal("toggle");
         var categoriaServidor = res.data;
@@ -2175,6 +2197,12 @@ __webpack_require__.r(__webpack_exports__);
         name: categoria.name,
         description: categoria.description
       };
+
+      if (this.categoria.name.trim() === "" || this.categoria.description.trim() === "") {
+        alert("Debes completar todos los campos antes de guardar");
+        return;
+      }
+
       axios.put("/categorias/".concat(categoria.id), params).then(function (res) {
         var index = _this4.categorias.findIndex(function (item) {
           return item.id === categoria.id;
@@ -2193,6 +2221,9 @@ __webpack_require__.r(__webpack_exports__);
         name: "",
         description: ""
       };
+    },
+    limpiarModal: function limpiarModal() {
+      this.errors = [];
     }
   }
 });
@@ -37911,10 +37942,25 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", [
-      _vm._m(0),
+      _c("h3", [
+        _vm._v("\n            Título\n            "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary float-right mb-2",
+            attrs: {
+              type: "button",
+              "data-toggle": "modal",
+              "data-target": "#create"
+            },
+            on: { click: _vm.limpiarModal }
+          },
+          [_vm._v("\n                Nueva categoría\n            ")]
+        )
+      ]),
       _vm._v(" "),
       _c("table", { staticClass: "table table-striped table-dark table-sm" }, [
-        _vm._m(1),
+        _vm._m(0),
         _vm._v(" "),
         _c(
           "tbody",
@@ -38039,7 +38085,7 @@ var render = function() {
             { staticClass: "modal-dialog", attrs: { role: "document" } },
             [
               _c("div", { staticClass: "modal-content" }, [
-                _vm._m(2),
+                _vm._m(1),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body" }, [
                   _c(
@@ -38053,6 +38099,26 @@ var render = function() {
                       }
                     },
                     [
+                      _vm.errors.length
+                        ? _c("p", [
+                            _c("b", [
+                              _vm._v(
+                                "Por favor, corrija el(los) siguiente(s) error(es):"
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "ul",
+                              _vm._l(_vm.errors, function(error) {
+                                return _c("li", { key: error }, [
+                                  _vm._v(_vm._s(error))
+                                ])
+                              }),
+                              0
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
                       _c("h5", [_vm._v("Nombre:")]),
                       _vm._v(" "),
                       _c("input", {
@@ -38111,7 +38177,7 @@ var render = function() {
                         }
                       }),
                       _vm._v(" "),
-                      _vm._m(3)
+                      _vm._m(2)
                     ]
                   )
                 ])
@@ -38280,26 +38346,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("h3", [
-      _vm._v("\n            Título\n            "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary float-right mb-2",
-          attrs: {
-            type: "button",
-            "data-toggle": "modal",
-            "data-target": "#create"
-          }
-        },
-        [_vm._v("\n                Nueva categoría\n            ")]
-      )
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
