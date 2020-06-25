@@ -2112,6 +2112,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2144,7 +2145,7 @@ __webpack_require__.r(__webpack_exports__);
         description: ""
       };
       axios.post("/categorias", categoriaNueva).then(function (res) {
-        $("#create").modal("hide");
+        $("#create").modal("toggle");
         var categoriaServidor = res.data;
 
         _this2.categorias.push(categoriaServidor);
@@ -2162,7 +2163,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     editarFormulario: function editarFormulario(item) {
-      $("#edit").modal("show");
+      $("#edit").modal("toggle");
       this.categoria.name = item.name;
       this.categoria.description = item.description;
       this.categoria.id = item.id;
@@ -2175,17 +2176,19 @@ __webpack_require__.r(__webpack_exports__);
         description: categoria.description
       };
       axios.put("/categorias/".concat(categoria.id), params).then(function (res) {
-        $("#edit").modal("hide");
-
         var index = _this4.categorias.findIndex(function (item) {
           return item.id === categoria.id;
         });
 
         _this4.categorias[index] = res.data;
+
+        _this4.categorias.splice(index, 0); //para recargar los valores ya que se usa modal
+
       });
+      $("#edit").modal("toggle");
     },
     cancelarEdicion: function cancelarEdicion() {
-      $("#edit").modal("hide");
+      $("#edit").modal("toggle");
       this.categoria = {
         name: "",
         description: ""
@@ -38256,7 +38259,7 @@ var render = function() {
                         "button",
                         {
                           staticClass: "btn btn-danger",
-                          attrs: { type: "submit" },
+                          attrs: { type: "button" },
                           on: { click: _vm.cancelarEdicion }
                         },
                         [
@@ -38309,7 +38312,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Descripción")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col", width: "90px" } }, [
+        _c("th", { attrs: { scope: "col", width: "100px" } }, [
           _vm._v("Acciones")
         ])
       ])

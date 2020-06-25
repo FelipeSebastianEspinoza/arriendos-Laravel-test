@@ -13,13 +13,14 @@
                 </button>
             </h3>
 
-            <table class="table table-striped table-dark table-sm"> <!-- table-responsive-sm -->
+            <table class="table table-striped table-dark table-sm">
+                <!-- table-responsive-sm -->
                 <thead>
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Descripción</th>
-                        <th scope="col" width="90px">Acciones</th>
+                        <th scope="col" width="100px">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -188,7 +189,7 @@
 
                                 <button
                                     class="btn btn-danger"
-                                    type="submit"
+                                    type="button"
                                     @click="cancelarEdicion"
                                 >
                                     Cancelar
@@ -229,7 +230,7 @@ export default {
             this.categoria = { name: "", description: "" };
 
             axios.post("/categorias", categoriaNueva).then(res => {
-                $("#create").modal("hide");
+                $("#create").modal("toggle");
                 const categoriaServidor = res.data;
                 this.categorias.push(categoriaServidor);
             });
@@ -245,7 +246,7 @@ export default {
             }
         },
         editarFormulario(item) {
-            $("#edit").modal("show");
+            $("#edit").modal("toggle");
             this.categoria.name = item.name;
             this.categoria.description = item.description;
             this.categoria.id = item.id;
@@ -256,20 +257,18 @@ export default {
                 description: categoria.description
             };
             axios.put(`/categorias/${categoria.id}`, params).then(res => {
-                $("#edit").modal("hide");
                 const index = this.categorias.findIndex(
                     item => item.id === categoria.id
                 );
                 this.categorias[index] = res.data;
+                this.categorias.splice(index, 0); //para recargar los valores ya que se usa modal
             });
+            $("#edit").modal("toggle");
         },
         cancelarEdicion() {
-            $("#edit").modal("hide");
-
+            $("#edit").modal("toggle");
             this.categoria = { name: "", description: "" };
-        },
-
-        
+        }
     }
 };
 </script>
