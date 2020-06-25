@@ -19,8 +19,10 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Descripción</th>
+                        <th scope="col">
+                            <a @click="ordenarTabla('name')">Nombre</a>
+                        </th>
+                        <th scope="col">  <a @click="ordenarTabla('description')">Nombre</a></th>
                         <th scope="col" width="100px">Acciones</th>
                     </tr>
                 </thead>
@@ -235,6 +237,7 @@
                 </div>
             </div>
         </div>
+  
     </div>
 </template>
 
@@ -256,6 +259,7 @@ export default {
             this.categorias = res.data;
         });
     },
+
     methods: {
         agregar() {
             var errors = [];
@@ -371,6 +375,29 @@ export default {
         validEmail: function(email) {
             var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             return re.test(email);
+        },
+        ordenarTabla(atributo) {
+            this.categorias.sort(function(a, b) {
+                if (atributo == "name") {
+                    var x = a.name.toLowerCase();
+                    var y = b.name.toLowerCase();
+                    if (x < y) {
+                        return -1;
+                    }
+                    if (x > y) {
+                        return 1;
+                    }
+                } else if (atributo == "description") {
+                    var x = a.description.toLowerCase();
+                    var y = b.description.toLowerCase();
+                    if (x < y) {
+                        return -1;
+                    }
+                    if (x > y) {
+                        return 1;
+                    }
+                }
+            });
         }
     }
 };

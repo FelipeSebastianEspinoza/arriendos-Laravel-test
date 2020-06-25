@@ -2148,6 +2148,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2304,6 +2307,33 @@ __webpack_require__.r(__webpack_exports__);
     validEmail: function validEmail(email) {
       var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
+    },
+    ordenarTabla: function ordenarTabla(atributo) {
+      this.categorias.sort(function (a, b) {
+        if (atributo == "name") {
+          var x = a.name.toLowerCase();
+          var y = b.name.toLowerCase();
+
+          if (x < y) {
+            return -1;
+          }
+
+          if (x > y) {
+            return 1;
+          }
+        } else if (atributo == "description") {
+          var x = a.description.toLowerCase();
+          var y = b.description.toLowerCase();
+
+          if (x < y) {
+            return -1;
+          }
+
+          if (x > y) {
+            return 1;
+          }
+        }
+      });
     }
   }
 });
@@ -38040,7 +38070,43 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("table", { staticClass: "table table-striped table-dark table-sm" }, [
-        _vm._m(0),
+        _c("thead", [
+          _c("tr", [
+            _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
+            _vm._v(" "),
+            _c("th", { attrs: { scope: "col" } }, [
+              _c(
+                "a",
+                {
+                  on: {
+                    click: function($event) {
+                      return _vm.ordenarTabla("name")
+                    }
+                  }
+                },
+                [_vm._v("Nombre")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("th", { attrs: { scope: "col" } }, [
+              _c(
+                "a",
+                {
+                  on: {
+                    click: function($event) {
+                      return _vm.ordenarTabla("description")
+                    }
+                  }
+                },
+                [_vm._v("Nombre")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("th", { attrs: { scope: "col", width: "100px" } }, [
+              _vm._v("Acciones")
+            ])
+          ])
+        ]),
         _vm._v(" "),
         _c(
           "tbody",
@@ -38165,7 +38231,7 @@ var render = function() {
             { staticClass: "modal-dialog", attrs: { role: "document" } },
             [
               _c("div", { staticClass: "modal-content" }, [
-                _vm._m(1),
+                _vm._m(0),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body" }, [
                   _c(
@@ -38261,7 +38327,7 @@ var render = function() {
                           ])
                         : _vm._e(),
                       _vm._v(" "),
-                      _vm._m(2)
+                      _vm._m(1)
                     ]
                   )
                 ])
@@ -38454,24 +38520,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Nombre")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Descripción")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col", width: "100px" } }, [
-          _vm._v("Acciones")
-        ])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
