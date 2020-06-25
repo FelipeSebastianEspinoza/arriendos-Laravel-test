@@ -2048,11 +2048,74 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       categorias: [],
-      modoEditar: false,
       categoria: {
         name: "",
         description: ""
@@ -2087,10 +2150,10 @@ __webpack_require__.r(__webpack_exports__);
         _this2.categorias.push(categoriaServidor);
       });
     },
-    eliminarNota: function eliminarNota(categoria, index) {
+    eliminarCategoria: function eliminarCategoria(categoria, index) {
       var _this3 = this;
 
-      var confirmacion = confirm("Eliminar categoria ".concat(categoria.name));
+      var confirmacion = confirm("Eliminar categor\xEDa ".concat(categoria.name));
 
       if (confirmacion) {
         axios["delete"]("/categorias/".concat(categoria.id)).then(function () {
@@ -2099,22 +2162,20 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     editarFormulario: function editarFormulario(item) {
-      $("#create").modal("show");
+      $("#edit").modal("show");
       this.categoria.name = item.name;
       this.categoria.description = item.description;
       this.categoria.id = item.id;
-      this.modoEditar = true;
     },
-    editarNota: function editarNota(categoria) {
+    editarCategoria: function editarCategoria(categoria) {
       var _this4 = this;
 
-      $("#create").modal("hide");
       var params = {
         name: categoria.name,
         description: categoria.description
       };
       axios.put("/categorias/".concat(categoria.id), params).then(function (res) {
-        _this4.modoEditar = false;
+        $("#edit").modal("hide");
 
         var index = _this4.categorias.findIndex(function (item) {
           return item.id === categoria.id;
@@ -2124,7 +2185,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     cancelarEdicion: function cancelarEdicion() {
-      this.modoEditar = false;
+      $("#edit").modal("hide");
       this.categoria = {
         name: "",
         description: ""
@@ -37846,60 +37907,114 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("table", { staticClass: "table table-dark" }, [
-      _vm._m(1),
+    _c("div", [
+      _vm._m(0),
       _vm._v(" "),
-      _c(
-        "tbody",
-        _vm._l(_vm.categorias, function(item, index) {
-          return _c("tr", { key: index }, [
-            _c("th", { attrs: { scope: "row" } }, [_vm._v(_vm._s(item.id))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(item.name))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(item.description))]),
-            _vm._v(" "),
-            _c("td", [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-warning btn-sm",
-                  on: {
-                    click: function($event) {
-                      return _vm.editarFormulario(item)
-                    }
-                  }
-                },
-                [
-                  _vm._v(
-                    "\n                        Editar\n                    "
-                  )
-                ]
-              ),
+      _c("table", { staticClass: "table table-dark" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.categorias, function(item, index) {
+            return _c("tr", { key: index }, [
+              _c("th", { attrs: { scope: "row" } }, [_vm._v(_vm._s(item.id))]),
               _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-danger btn-sm",
-                  on: {
-                    click: function($event) {
-                      return _vm.eliminarNota(item, index)
+              _c("td", [_vm._v(_vm._s(item.name))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(item.description))]),
+              _vm._v(" "),
+              _c("td", [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-warning btn-sm",
+                    on: {
+                      click: function($event) {
+                        return _vm.editarFormulario(item)
+                      }
                     }
-                  }
-                },
-                [
-                  _vm._v(
-                    "\n                        Eliminar\n                    "
-                  )
-                ]
-              )
+                  },
+                  [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "bi bi-pencil-square",
+                        attrs: {
+                          width: "1.5em",
+                          height: "1.5em",
+                          viewBox: "0 0 16 16",
+                          fill: "currentColor",
+                          xmlns: "http://www.w3.org/2000/svg"
+                        }
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d:
+                              "M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("path", {
+                          attrs: {
+                            "fill-rule": "evenodd",
+                            d:
+                              "M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+                          }
+                        })
+                      ]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger btn-sm",
+                    on: {
+                      click: function($event) {
+                        return _vm.eliminarCategoria(item, index)
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "bi bi-trash",
+                        attrs: {
+                          width: "1.5em",
+                          height: "1.5em",
+                          viewBox: "0 0 16 16",
+                          fill: "currentColor",
+                          xmlns: "http://www.w3.org/2000/svg"
+                        }
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d:
+                              "M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("path", {
+                          attrs: {
+                            "fill-rule": "evenodd",
+                            d:
+                              "M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+                          }
+                        })
+                      ]
+                    )
+                  ]
+                )
+              ])
             ])
-          ])
-        }),
-        0
-      )
+          }),
+          0
+        )
+      ])
     ]),
     _vm._v(" "),
     _c("div", [
@@ -37921,6 +38036,106 @@ var render = function() {
             { staticClass: "modal-dialog", attrs: { role: "document" } },
             [
               _c("div", { staticClass: "modal-content" }, [
+                _vm._m(2),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-body" }, [
+                  _c(
+                    "form",
+                    {
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.agregar($event)
+                        }
+                      }
+                    },
+                    [
+                      _c("h5", [_vm._v("Nombre:")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.categoria.name,
+                            expression: "categoria.name"
+                          }
+                        ],
+                        staticClass: "form-control mb-2",
+                        attrs: {
+                          type: "text",
+                          placeholder: "Escriba un nombre..."
+                        },
+                        domProps: { value: _vm.categoria.name },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.categoria, "name", $event.target.value)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("h5", [_vm._v("Descripción:")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.categoria.description,
+                            expression: "categoria.description"
+                          }
+                        ],
+                        staticClass: "form-control mb-2",
+                        attrs: {
+                          type: "text",
+                          placeholder: "Escriba una descripción..."
+                        },
+                        domProps: { value: _vm.categoria.description },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.categoria,
+                              "description",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm._m(3)
+                    ]
+                  )
+                ])
+              ])
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            id: "edit",
+            tabindex: "-1",
+            role: "dialog",
+            "aria-labelledby": "exampleModalLabel",
+            "aria-hidden": "true"
+          }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "modal-dialog", attrs: { role: "document" } },
+            [
+              _c("div", { staticClass: "modal-content" }, [
                 _c("div", { staticClass: "modal-header" }, [
                   _c(
                     "h5",
@@ -37930,7 +38145,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                            Modal title\n                        "
+                        "\n                            Editar categoría\n                        "
                       )
                     ]
                   ),
@@ -37955,180 +38170,103 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body" }, [
-                  _vm.modoEditar
-                    ? _c(
-                        "form",
-                        {
-                          on: {
-                            submit: function($event) {
-                              $event.preventDefault()
-                              return _vm.editarNota(_vm.categoria)
-                            }
+                  _c(
+                    "form",
+                    {
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.editarCategoria(_vm.categoria)
+                        }
+                      }
+                    },
+                    [
+                      _c("h5", [_vm._v("Nombre")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.categoria.name,
+                            expression: "categoria.name"
                           }
+                        ],
+                        staticClass: "form-control mb-2",
+                        attrs: {
+                          type: "text",
+                          placeholder: "Escriba un nombre..."
+                        },
+                        domProps: { value: _vm.categoria.name },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.categoria, "name", $event.target.value)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("h5", [_vm._v("Descripción")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.categoria.description,
+                            expression: "categoria.description"
+                          }
+                        ],
+                        staticClass: "form-control mb-2",
+                        attrs: {
+                          type: "text",
+                          placeholder: "Escriba una descripción..."
+                        },
+                        domProps: { value: _vm.categoria.description },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.categoria,
+                              "description",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-warning",
+                          attrs: { type: "submit" }
                         },
                         [
-                          _c("h3", [_vm._v("Editar nota")]),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.categoria.name,
-                                expression: "categoria.name"
-                              }
-                            ],
-                            staticClass: "form-control mb-2",
-                            attrs: {
-                              type: "text",
-                              placeholder: "Nombre de la nota"
-                            },
-                            domProps: { value: _vm.categoria.name },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.categoria,
-                                  "name",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.categoria.description,
-                                expression: "categoria.description"
-                              }
-                            ],
-                            staticClass: "form-control mb-2",
-                            attrs: {
-                              type: "text",
-                              placeholder: "Descripción de la nota"
-                            },
-                            domProps: { value: _vm.categoria.description },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.categoria,
-                                  "description",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-warning",
-                              attrs: { type: "submit" }
-                            },
-                            [
-                              _vm._v(
-                                "\n                                Editar\n                            "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-danger",
-                              attrs: { type: "submit" },
-                              on: { click: _vm.cancelarEdicion }
-                            },
-                            [
-                              _vm._v(
-                                "\n                                Cancelar\n                            "
-                              )
-                            ]
+                          _vm._v(
+                            "\n                                Editar\n                            "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger",
+                          attrs: { type: "submit" },
+                          on: { click: _vm.cancelarEdicion }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Cancelar\n                            "
                           )
                         ]
                       )
-                    : _c(
-                        "form",
-                        {
-                          on: {
-                            submit: function($event) {
-                              $event.preventDefault()
-                              return _vm.agregar($event)
-                            }
-                          }
-                        },
-                        [
-                          _c("h3", [_vm._v("Agregar categoría")]),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.categoria.name,
-                                expression: "categoria.name"
-                              }
-                            ],
-                            staticClass: "form-control mb-2",
-                            attrs: {
-                              type: "text",
-                              placeholder: "Nombre de la nota"
-                            },
-                            domProps: { value: _vm.categoria.name },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.categoria,
-                                  "name",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.categoria.description,
-                                expression: "categoria.description"
-                              }
-                            ],
-                            staticClass: "form-control mb-2",
-                            attrs: {
-                              type: "text",
-                              placeholder: "Descripción de la nota"
-                            },
-                            domProps: { value: _vm.categoria.description },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.categoria,
-                                  "description",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _vm._m(2)
-                        ]
-                      )
+                    ]
+                  )
                 ])
               ])
             ]
@@ -38144,18 +38282,18 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("h3", [
-      _vm._v("\n        Titulo\n        "),
+      _vm._v("\n            Título\n            "),
       _c(
         "button",
         {
-          staticClass: "btn btn-primary float-right",
+          staticClass: "btn btn-primary float-right mb-2",
           attrs: {
             type: "button",
             "data-toggle": "modal",
             "data-target": "#create"
           }
         },
-        [_vm._v("\n            Nueva categoría\n        ")]
+        [_vm._v("\n                Nueva categoría\n            ")]
       )
     ])
   },
@@ -38179,6 +38317,35 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
+        [
+          _vm._v(
+            "\n                            Añadir categoría\n                        "
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-footer" }, [
       _c(
         "button",
@@ -38188,7 +38355,7 @@ var staticRenderFns = [
         },
         [
           _vm._v(
-            "\n                                    Close\n                                "
+            "\n                                    Cerrar\n                                "
           )
         ]
       ),
