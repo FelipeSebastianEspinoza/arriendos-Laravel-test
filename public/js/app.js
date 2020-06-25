@@ -37910,7 +37910,7 @@ var render = function() {
     _c("div", [
       _vm._m(0),
       _vm._v(" "),
-      _c("table", { staticClass: "table table-dark" }, [
+      _c("table", { staticClass: "table table-striped table-dark table-sm" }, [
         _vm._m(1),
         _vm._v(" "),
         _c(
@@ -38309,7 +38309,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Descripción")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Acciones")])
+        _c("th", { attrs: { scope: "col", width: "90px" } }, [
+          _vm._v("Acciones")
+        ])
       ])
     ])
   },

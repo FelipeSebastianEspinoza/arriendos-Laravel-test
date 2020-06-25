@@ -13,13 +13,13 @@
                 </button>
             </h3>
 
-            <table class="table table-dark">
+            <table class="table table-striped table-dark table-sm"> <!-- table-responsive-sm -->
                 <thead>
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Descripción</th>
-                        <th scope="col">Acciones</th>
+                        <th scope="col" width="90px">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -267,7 +267,9 @@ export default {
             $("#edit").modal("hide");
 
             this.categoria = { name: "", description: "" };
-        }
+        },
+
+        
     }
 };
 </script>
