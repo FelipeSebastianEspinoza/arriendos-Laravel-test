@@ -1908,13 +1908,6 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
-//
-//
 //
 //
 //
@@ -2194,10 +2187,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    var _ref;
-
-    return _ref = {
-      searchQuery: null,
+    return {
       categorias: [],
       categoria: {
         name: "",
@@ -2209,54 +2199,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       descriptionValid: false,
       descriptionInvalid: false,
       //ordenar tabla
-      nameReverse: false
-    }, _defineProperty(_ref, "searchQuery", null), _defineProperty(_ref, "resources", [{
-      title: "ABE Attendance",
-      uri: "aaaa.com",
-      category: "a",
-      icon: null
-    }, {
-      title: "Accounting Services",
-      uri: "aaaa.com",
-      category: "a",
-      icon: null
-    }, {
-      title: "Administration",
-      uri: "aaaa.com",
-      category: "a",
-      icon: null
-    }, {
-      title: "Advanced Student Lookup",
-      uri: "bbbb.com",
-      category: "b",
-      icon: null
-    }, {
-      title: "Art & Sciences",
-      uri: "bbbb.com",
-      category: "b",
-      icon: null
-    }, {
-      title: "Auxiliares Services",
-      uri: "bbbb.com",
-      category: "b",
-      icon: null
-    }, {
-      title: "Basic Skills",
-      uri: "cccc.com",
-      category: "c",
-      icon: null
-    }, {
-      title: "Board of Trustees",
-      uri: "dddd.com",
-      category: "d",
-      icon: null
-    }]), _ref;
+      nameReverse: false,
+      ///
+      searchQuery: null
+    };
   },
   created: function created() {
     var _this = this;
 
     axios.get("/categorias").then(function (res) {
       _this.categorias = res.data;
+      _this.resources = res.data;
     });
   },
   methods: {
@@ -2311,6 +2264,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (confirmacion) {
         axios["delete"]("/categorias/".concat(categoria.id)).then(function () {
           _this3.categorias.splice(index, 1);
+
+          _this3.searchQuery = null;
         });
       }
     },
@@ -2457,13 +2412,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this5 = this;
 
       if (this.searchQuery) {
-        return this.resources.filter(function (item) {
-          return _this5.searchQuery.toLowerCase().split(' ').every(function (v) {
-            return item.title.toLowerCase().includes(v);
+        return this.categorias.filter(function (item) {
+          return _this5.searchQuery.toLowerCase().split(" ").every(function (v) {
+            return item.name.toLowerCase().includes(v);
           });
         });
       } else {
-        return this.resources;
+        return this.categorias;
       }
     }
   }
@@ -38184,7 +38139,7 @@ var render = function() {
   return _c("div", [
     _c("div", [
       _c("h3", [
-        _vm._v("\n                Título\n                "),
+        _vm._v("\n            Título\n            "),
         _c(
           "button",
           {
@@ -38196,165 +38151,10 @@ var render = function() {
             },
             on: { click: _vm.limpiarModal }
           },
-          [_vm._v("\n                    Nueva categoría\n                ")]
+          [_vm._v("\n                Nueva categoría\n            ")]
         )
       ]),
       _vm._v(" "),
-      _c(
-        "table",
-        {
-          staticClass: "table table-striped table-dark table-sm",
-          attrs: { id: "myTable" }
-        },
-        [
-          _c("thead", [
-            _c("tr", [
-              _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
-              _vm._v(" "),
-              _c("th", { attrs: { scope: "col" } }, [
-                _c(
-                  "a",
-                  {
-                    staticStyle: { cursor: "pointer" },
-                    on: {
-                      click: function($event) {
-                        return _vm.ordenarTabla("name")
-                      }
-                    }
-                  },
-                  [_vm._v("Nombre")]
-                )
-              ]),
-              _vm._v(" "),
-              _c("th", { attrs: { scope: "col" } }, [
-                _c(
-                  "a",
-                  {
-                    staticStyle: { cursor: "pointer" },
-                    on: {
-                      click: function($event) {
-                        return _vm.ordenarTabla("description")
-                      }
-                    }
-                  },
-                  [_vm._v("Description")]
-                )
-              ]),
-              _vm._v(" "),
-              _c("th", { attrs: { scope: "col", width: "100px" } }, [
-                _vm._v("Acciones")
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c(
-            "tbody",
-            _vm._l(_vm.categorias, function(item, index) {
-              return _c("tr", { key: index }, [
-                _c("th", { attrs: { scope: "row" } }, [
-                  _vm._v(_vm._s(item.id))
-                ]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(item.name))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(item.description))]),
-                _vm._v(" "),
-                _c("td", [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-warning btn-sm",
-                      on: {
-                        click: function($event) {
-                          _vm.editarFormulario(item), _vm.resetModal()
-                        }
-                      }
-                    },
-                    [
-                      _c(
-                        "svg",
-                        {
-                          staticClass: "bi bi-pencil-square",
-                          attrs: {
-                            width: "1.5em",
-                            height: "1.5em",
-                            viewBox: "0 0 16 16",
-                            fill: "currentColor",
-                            xmlns: "http://www.w3.org/2000/svg"
-                          }
-                        },
-                        [
-                          _c("path", {
-                            attrs: {
-                              d:
-                                "M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("path", {
-                            attrs: {
-                              "fill-rule": "evenodd",
-                              d:
-                                "M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
-                            }
-                          })
-                        ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-danger btn-sm",
-                      on: {
-                        click: function($event) {
-                          return _vm.eliminarCategoria(item, index)
-                        }
-                      }
-                    },
-                    [
-                      _c(
-                        "svg",
-                        {
-                          staticClass: "bi bi-trash",
-                          attrs: {
-                            width: "1.5em",
-                            height: "1.5em",
-                            viewBox: "0 0 16 16",
-                            fill: "currentColor",
-                            xmlns: "http://www.w3.org/2000/svg"
-                          }
-                        },
-                        [
-                          _c("path", {
-                            attrs: {
-                              d:
-                                "M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("path", {
-                            attrs: {
-                              "fill-rule": "evenodd",
-                              d:
-                                "M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
-                            }
-                          })
-                        ]
-                      )
-                    ]
-                  )
-                ])
-              ])
-            }),
-            0
-          )
-        ]
-      )
-    ]),
-    _vm._v(" "),
-    _c("div", [
       _c(
         "div",
         {
@@ -38421,7 +38221,7 @@ var render = function() {
                       _vm.nameInvalid
                         ? _c("p", { staticClass: "text-danger" }, [
                             _vm._v(
-                              "\n                                    Escriba un nombre válido\n                                "
+                              "\n                                Escriba un nombre válido\n                            "
                             )
                           ])
                         : _vm._e(),
@@ -38464,7 +38264,7 @@ var render = function() {
                       _vm.descriptionInvalid
                         ? _c("p", { staticClass: "text-danger" }, [
                             _vm._v(
-                              "\n                                    Escriba un texto más extenso\n                                "
+                              "\n                                Escriba un texto más extenso\n                            "
                             )
                           ])
                         : _vm._e(),
@@ -38506,7 +38306,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                                Editar categoría\n                            "
+                        "\n                            Editar categoría\n                        "
                       )
                     ]
                   ),
@@ -38576,7 +38376,7 @@ var render = function() {
                       _vm.nameInvalid
                         ? _c("p", { staticClass: "text-danger" }, [
                             _vm._v(
-                              "\n                                    Escriba un nombre válido\n                                "
+                              "\n                                Escriba un nombre válido\n                            "
                             )
                           ])
                         : _vm._e(),
@@ -38619,7 +38419,7 @@ var render = function() {
                       _vm.descriptionInvalid
                         ? _c("p", { staticClass: "text-danger" }, [
                             _vm._v(
-                              "\n                                    Escriba un texto más extenso\n                                "
+                              "\n                                Escriba un texto más extenso\n                            "
                             )
                           ])
                         : _vm._e(),
@@ -38632,7 +38432,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                                    Editar\n                                "
+                            "\n                                Editar\n                            "
                           )
                         ]
                       ),
@@ -38646,7 +38446,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                                    Cancelar\n                                "
+                            "\n                                Cancelar\n                            "
                           )
                         ]
                       )
@@ -38691,26 +38491,159 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "table-responsive" }, [
-          _vm.resources.length
-            ? _c("table", { staticClass: "table" }, [
-                _vm._m(3),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  _vm._l(_vm.resultQuery, function(item, index) {
-                    return _c("tr", { key: index }, [
-                      _c("td", [
+          _vm.categorias.length
+            ? _c(
+                "table",
+                {
+                  staticClass: "table table-striped table-dark table-sm",
+                  attrs: { id: "myTable" }
+                },
+                [
+                  _c("thead", [
+                    _c("tr", [
+                      _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
+                      _vm._v(" "),
+                      _c("th", { attrs: { scope: "col" } }, [
                         _c(
                           "a",
-                          { attrs: { href: item.uri, target: "_blank" } },
-                          [_vm._v(_vm._s(item.title))]
+                          {
+                            staticStyle: { cursor: "pointer" },
+                            on: {
+                              click: function($event) {
+                                return _vm.ordenarTabla("name")
+                              }
+                            }
+                          },
+                          [_vm._v("Nombre")]
                         )
+                      ]),
+                      _vm._v(" "),
+                      _c("th", { attrs: { scope: "col" } }, [
+                        _c(
+                          "a",
+                          {
+                            staticStyle: { cursor: "pointer" },
+                            on: {
+                              click: function($event) {
+                                return _vm.ordenarTabla("description")
+                              }
+                            }
+                          },
+                          [_vm._v("Description")]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("th", { attrs: { scope: "col", width: "100px" } }, [
+                        _vm._v("Acciones")
                       ])
                     ])
-                  }),
-                  0
-                )
-              ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.resultQuery, function(item, index) {
+                      return _c("tr", { key: index }, [
+                        _c("th", { attrs: { scope: "row" } }, [
+                          _vm._v(_vm._s(item.id))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(item.name))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(item.description))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-warning btn-sm",
+                              on: {
+                                click: function($event) {
+                                  _vm.editarFormulario(item), _vm.resetModal()
+                                }
+                              }
+                            },
+                            [
+                              _c(
+                                "svg",
+                                {
+                                  staticClass: "bi bi-pencil-square",
+                                  attrs: {
+                                    width: "1.5em",
+                                    height: "1.5em",
+                                    viewBox: "0 0 16 16",
+                                    fill: "currentColor",
+                                    xmlns: "http://www.w3.org/2000/svg"
+                                  }
+                                },
+                                [
+                                  _c("path", {
+                                    attrs: {
+                                      d:
+                                        "M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("path", {
+                                    attrs: {
+                                      "fill-rule": "evenodd",
+                                      d:
+                                        "M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+                                    }
+                                  })
+                                ]
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger btn-sm",
+                              on: {
+                                click: function($event) {
+                                  return _vm.eliminarCategoria(item, index)
+                                }
+                              }
+                            },
+                            [
+                              _c(
+                                "svg",
+                                {
+                                  staticClass: "bi bi-trash",
+                                  attrs: {
+                                    width: "1.5em",
+                                    height: "1.5em",
+                                    viewBox: "0 0 16 16",
+                                    fill: "currentColor",
+                                    xmlns: "http://www.w3.org/2000/svg"
+                                  }
+                                },
+                                [
+                                  _c("path", {
+                                    attrs: {
+                                      d:
+                                        "M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("path", {
+                                    attrs: {
+                                      "fill-rule": "evenodd",
+                                      d:
+                                        "M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+                                    }
+                                  })
+                                ]
+                              )
+                            ]
+                          )
+                        ])
+                      ])
+                    }),
+                    0
+                  )
+                ]
+              )
             : _vm._e()
         ])
       ])
@@ -38728,7 +38661,7 @@ var staticRenderFns = [
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
         [
           _vm._v(
-            "\n                                Añadir categoría\n                            "
+            "\n                            Añadir categoría\n                        "
           )
         ]
       ),
@@ -38760,7 +38693,7 @@ var staticRenderFns = [
         },
         [
           _vm._v(
-            "\n                                        Cerrar\n                                    "
+            "\n                                    Cerrar\n                                "
           )
         ]
       ),
@@ -38770,7 +38703,7 @@ var staticRenderFns = [
         { staticClass: "btn btn-primary", attrs: { type: "submit" } },
         [
           _vm._v(
-            "\n                                        Agregar\n                                    "
+            "\n                                    Agregar\n                                "
           )
         ]
       )
@@ -38783,12 +38716,6 @@ var staticRenderFns = [
     return _c("div", { staticClass: "panel-heading" }, [
       _c("strong", [_vm._v(" All Resources")])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [_c("tr", [_c("th", [_vm._v("Resource")])])])
   }
 ]
 render._withStripped = true
