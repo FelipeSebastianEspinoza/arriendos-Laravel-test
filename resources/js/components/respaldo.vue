@@ -1,6 +1,5 @@
 <template>
-    <b-container fluid>
-        <!-- Title and add button -->
+    <div>
         <h3>
             Título
             <button
@@ -13,102 +12,22 @@
                 Nueva categoría
             </button>
         </h3>
-        <!-- User Interface controls -->
-        <b-row>
-            <b-col lg="6" class="my-1">
-                <b-form-group
-                    label="Filter"
-                    label-cols-sm="3"
-                    label-align-sm="right"
-                    label-size="sm"
-                    label-for="filterInput"
-                    class="mb-0"
-                >
-                    <b-input-group size="sm">
-                        <b-form-input
-                            v-model="filter"
-                            type="search"
-                            id="filterInput"
-                            placeholder="Type to Search"
-                        ></b-form-input>
-                        <b-input-group-append>
-                            <b-button :disabled="!filter" @click="filter = ''"
-                                >Clear</b-button
-                            >
-                        </b-input-group-append>
-                    </b-input-group>
-                </b-form-group>
-            </b-col>
 
-            <b-col lg="6" class="my-1">
-                <b-form-group
-                    label="Filter On"
-                    label-cols-sm="3"
-                    label-align-sm="right"
-                    label-size="sm"
-                    description="Leave all unchecked to filter on all data"
-                    class="mb-0"
-                >
-                    <b-form-checkbox-group v-model="filterOn" class="mt-1">
-                        <b-form-checkbox value="name">Name</b-form-checkbox>
-                        <b-form-checkbox value="age">Age</b-form-checkbox>
-                        <b-form-checkbox value="isActive"
-                            >Active</b-form-checkbox
-                        >
-                    </b-form-checkbox-group>
-                </b-form-group>
-            </b-col>
+ 
 
-            <b-col sm="5" md="6" class="my-1">
-                <b-form-group
-                    label="Per page"
-                    label-cols-sm="6"
-                    label-cols-md="4"
-                    label-cols-lg="3"
-                    label-align-sm="right"
-                    label-size="sm"
-                    label-for="perPageSelect"
-                    class="mb-0"
-                >
-                    <b-form-select
-                        v-model="perPage"
-                        id="perPageSelect"
-                        size="sm"
-                        :options="pageOptions"
-                    ></b-form-select>
-                </b-form-group>
-            </b-col>
 
-            <b-col sm="7" md="6" class="my-1">
-                <b-pagination
-                    v-model="currentPage"
-                    :total-rows="totalRows"
-                    :per-page="perPage"
-                    align="fill"
-                    size="sm"
-                    class="my-0"
-                ></b-pagination>
-            </b-col>
-        </b-row>
 
-        <!-- Main table element -->
-        <b-table
-            show-empty
-            small
-            stacked="md"
-            :items="categorias"
-            :fields="fields"
-            :current-page="currentPage"
-            :per-page="perPage"
-            :filter="filter"
-            :filterIncludedFields="filterOn"
-            :sort-by.sync="sortBy"
-            :sort-desc.sync="sortDesc"
-            :sort-direction="sortDirection"
-            @filtered="onFiltered"
+        <b-table striped hover :items="categorias" :fields="fields" 
+        
+        id="myTable"
+             :per-page="perPage"
+      :current-page="currentPage"
+      small
         >
+ 
+
             <template v-slot:cell(actions)="atributos">
-                <button
+                <button 
                     class="btn btn-warning btn-sm"
                     @click="editarFormulario(atributos), resetModal()"
                 >
@@ -154,79 +73,30 @@
             </template>
         </b-table>
 
-        <!--Modal edit-->
-        <div
-            class="modal fade"
-            id="edit"
-            tabindex="-1"
-            role="dialog"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
-        >
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">
-                            Editar categoría
-                        </h5>
-                        <button
-                            type="button"
-                            class="close"
-                            data-dismiss="modal"
-                            aria-label="Close"
-                            @click="cancelarEdicion"
-                        >
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form @submit.prevent="editarCategoria(categoria)">
-                            <!--   <h3>Editar categoria</h3> -->
-                            <h5>Nombre</h5>
-                            <input
-                                type="text"
-                                class="form-control mb-2"
-                                placeholder="Escriba un nombre..."
-                                v-model="categoria.name"
-                                v-bind:class="{
-                                    'is-valid': nameValid,
-                                    'is-invalid': nameInvalid
-                                }"
-                            />
-                            <p class="text-danger" v-if="nameInvalid">
-                                Escriba un nombre válido
-                            </p>
-                            <h5>Descripción</h5>
-                            <input
-                                type="text"
-                                class="form-control mb-2"
-                                placeholder="Escriba una descripción..."
-                                v-model="categoria.description"
-                                v-bind:class="{
-                                    'is-valid': descriptionValid,
-                                    'is-invalid': descriptionInvalid
-                                }"
-                            />
-                            <p class="text-danger" v-if="descriptionInvalid">
-                                Escriba un texto más extenso
-                            </p>
-                            <button class="btn btn-warning" type="submit">
-                                Editar
-                            </button>
 
-                            <button
-                                class="btn btn-danger"
-                                type="button"
-                                @click="cancelarEdicion"
-                            >
-                                Cancelar
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
 
+  <b-pagination
+      v-model="currentPage"
+      :total-rows="rows"
+      :per-page="perPage"
+      aria-controls="myTable"
+    ></b-pagination>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
         <!--Modal create-->
         <div
             class="modal fade"
@@ -300,7 +170,79 @@
                 </div>
             </div>
         </div>
-    </b-container>
+        <!--Modal edit-->
+        <div
+            class="modal fade"
+            id="edit"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                            Editar categoría
+                        </h5>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                            @click="cancelarEdicion"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form @submit.prevent="editarCategoria(categoria)">
+                            <!--   <h3>Editar categoria</h3> -->
+                            <h5>Nombre</h5>
+                            <input
+                                type="text"
+                                class="form-control mb-2"
+                                placeholder="Escriba un nombre..."
+                                v-model="categoria.name"
+                                v-bind:class="{
+                                    'is-valid': nameValid,
+                                    'is-invalid': nameInvalid
+                                }"
+                            />
+                            <p class="text-danger" v-if="nameInvalid">
+                                Escriba un nombre válido
+                            </p>
+                            <h5>Descripción</h5>
+                            <input
+                                type="text"
+                                class="form-control mb-2"
+                                placeholder="Escriba una descripción..."
+                                v-model="categoria.description"
+                                v-bind:class="{
+                                    'is-valid': descriptionValid,
+                                    'is-invalid': descriptionInvalid
+                                }"
+                            />
+                            <p class="text-danger" v-if="descriptionInvalid">
+                                Escriba un texto más extenso
+                            </p>
+                            <button class="btn btn-warning" type="submit">
+                                Editar
+                            </button>
+
+                            <button
+                                class="btn btn-danger"
+                                type="button"
+                                @click="cancelarEdicion"
+                            >
+                                Cancelar
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -309,49 +251,31 @@ export default {
         return {
             categorias: [],
             categoria: { name: "", description: "" },
-
             fields: [
                 {
                     key: "name",
                     label: "Nombre",
-                    sortable: true
+                    sortable: true,
+                    sortDirection: "asc"
                 },
-                { key: "description", label: "Descripcion" },
+                { key: "description", label: "Descripcion", sortable: false },
                 { key: "actions", label: "Actions" }
             ],
-
-            totalRows: 1,
-            currentPage: 1,
-            perPage: 5,
-            pageOptions: [5, 10, 15],
-            sortBy: "",
-            sortDesc: false,
-            sortDirection: "asc",
-            filter: null,
-            filterOn: [],
-            //modals
             nameValid: false,
             nameInvalid: false,
             descriptionValid: false,
-            descriptionInvalid: false
+            descriptionInvalid: false,
+            //pagination
+         perPage: 3,
+        currentPage: 1,
+            //filter
+                    filter: null,
         };
     },
     created() {
         axios.get("/categorias").then(res => {
             this.categorias = res.data;
-            this.totalRows = this.categorias.length;
         });
-    },
-
-    computed: {
-        sortOptions() {
-            // Create an options list from our fields
-            return this.fields
-                .filter(f => f.sortable)
-                .map(f => {
-                    return { text: f.label, value: f.key };
-                });
-        }
     },
 
     methods: {
@@ -392,17 +316,12 @@ export default {
             });
         },
         eliminarCategoria(atributos) {
-            
             const confirmacion = confirm(
                 `Eliminar categoría ${atributos.item.name}`
             );
-        
-            var indexNuevo = atributos.index;
-         
-            indexNuevo = indexNuevo + (this.perPage*(this.currentPage-1)  );
             if (confirmacion) {
                 axios.delete(`/categorias/${atributos.item.id}`).then(() => {
-                    this.categorias.splice(indexNuevo, 1);
+                    this.categorias.splice(atributos.index, 1);
                 });
             }
         },
@@ -475,12 +394,18 @@ export default {
             var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             return re.test(email);
         },
-
-        onFiltered(filteredItems) {
-            // Trigger pagination to update the number of buttons/pages due to filtering
-            this.totalRows = filteredItems.length;
-            this.currentPage = 1;
-        }
-    }
+              onFiltered(filteredItems) {
+        // Trigger pagination to update the number of buttons/pages due to filtering
+        this.totalRows = filteredItems.length
+        this.currentPage = 1
+      }
+    },
+    computed: {     
+        rows() {
+        return this.categorias.length
+      },
+      
+      
+      }
 };
 </script>

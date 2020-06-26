@@ -1,18 +1,5 @@
 <template>
     <b-container fluid>
-        <!-- Title and add button -->
-        <h3>
-            Título
-            <button
-                type="button"
-                class="btn btn-primary float-right mb-2"
-                data-toggle="modal"
-                data-target="#create"
-                @click="limpiarModal"
-            >
-                Nueva categoría
-            </button>
-        </h3>
         <!-- User Interface controls -->
         <b-row>
             <b-col lg="6" class="my-1">
@@ -90,7 +77,19 @@
                 ></b-pagination>
             </b-col>
         </b-row>
-
+        <!-- Title and add button -->
+        <h3>
+            Título
+            <button
+                type="button"
+                class="btn btn-primary float-right mb-2"
+                data-toggle="modal"
+                data-target="#create"
+                @click="limpiarModal"
+            >
+                Nueva categoría
+            </button>
+        </h3>
         <!-- Main table element -->
         <b-table
             show-empty
@@ -307,9 +306,9 @@
 export default {
     data() {
         return {
+ 
             categorias: [],
             categoria: { name: "", description: "" },
-
             fields: [
                 {
                     key: "name",
@@ -319,7 +318,6 @@ export default {
                 { key: "description", label: "Descripcion" },
                 { key: "actions", label: "Actions" }
             ],
-
             totalRows: 1,
             currentPage: 1,
             perPage: 5,
@@ -339,7 +337,6 @@ export default {
     created() {
         axios.get("/categorias").then(res => {
             this.categorias = res.data;
-            this.totalRows = this.categorias.length;
         });
     },
 
@@ -353,7 +350,10 @@ export default {
                 });
         }
     },
-
+    mounted() {
+        // Set the initial number of items
+        this.totalRows = this.categorias.length;
+    },
     methods: {
         agregar() {
             var errors = [];
@@ -392,17 +392,12 @@ export default {
             });
         },
         eliminarCategoria(atributos) {
-            
             const confirmacion = confirm(
                 `Eliminar categoría ${atributos.item.name}`
             );
-        
-            var indexNuevo = atributos.index;
-         
-            indexNuevo = indexNuevo + (this.perPage*(this.currentPage-1)  );
             if (confirmacion) {
                 axios.delete(`/categorias/${atributos.item.id}`).then(() => {
-                    this.categorias.splice(indexNuevo, 1);
+                    this.categorias.splice(atributos.index, 1);
                 });
             }
         },
@@ -480,7 +475,14 @@ export default {
             // Trigger pagination to update the number of buttons/pages due to filtering
             this.totalRows = filteredItems.length;
             this.currentPage = 1;
-        }
+        },
+     
     }
 };
 </script>
+
+
+
+
+
+

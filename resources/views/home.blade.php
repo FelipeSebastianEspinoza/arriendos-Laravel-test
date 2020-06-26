@@ -7,7 +7,7 @@
 
 
             <div class="card-body">
-                <categoria-component />
+                <tareas-component />
             </div>
 
         </div>
