@@ -41,7 +41,6 @@
             </b-col>
 
             <b-col lg="6" class="my-1">
-               
                 <b-form-group
                     label="Buscar por:"
                     label-cols-sm="3"
@@ -49,10 +48,11 @@
                     label-size="sm"
                     class="mb-0"
                 >
-                
                     <b-form-checkbox-group v-model="filterOn" class="mt-1">
                         <b-form-checkbox value="name">Nombre</b-form-checkbox>
-                        <b-form-checkbox value="description">Descripción</b-form-checkbox>
+                        <b-form-checkbox value="description"
+                            >Descripción</b-form-checkbox
+                        >
                     </b-form-checkbox-group>
                 </b-form-group>
             </b-col>
@@ -104,6 +104,10 @@
             :sort-desc.sync="sortDesc"
             :sort-direction="sortDirection"
             @filtered="onFiltered"
+            :striped="striped"
+            :bordered="bordered"
+            :hover="hover"
+            :dark="dark"
         >
             <template v-slot:cell(actions)="atributos">
                 <button
@@ -151,7 +155,13 @@
                 </button>
             </template>
         </b-table>
-
+        <b-form-group label="Opciones" label-cols-lg="2">
+            <b-form-checkbox v-model="striped" inline>Interlineado</b-form-checkbox>
+            <b-form-checkbox v-model="bordered" inline
+                >Cuadricula</b-form-checkbox
+            >
+            <b-form-checkbox v-model="dark" inline>Oscura</b-form-checkbox>
+        </b-form-group>
         <!--Modal edit-->
         <div
             class="modal fade"
@@ -307,15 +317,29 @@ export default {
         return {
             categorias: [],
             categoria: { name: "", description: "" },
+            //formato de la tabla
+            striped: false,
+            bordered: false,
+            hover: true,
+            dark: false,
 
             fields: [
                 {
                     key: "name",
                     label: "Nombre",
-                    sortable: true
+                    sortable: true,
+                    tdClass: "tablaAttNombre"
                 },
-                { key: "description", label: "Descripcion" },
-                { key: "actions", label: "Actions" }
+                {
+                    key: "description",
+                    label: "Descripcion",
+                    tdClass: "tablaAttDescripcion"
+                },
+                {
+                    key: "actions",
+                    label: "Actions",
+                    tdClass: "tablaAttActions"
+                }
             ],
 
             totalRows: 1,
@@ -482,3 +506,15 @@ export default {
     }
 };
 </script>
+
+<style>
+.tablaAttNombre {
+    max-width: 300px;
+}
+.tablaAttDescripcion {
+    max-width: 400px;
+}
+.tablaAttActions {
+    max-width: 300px;
+}
+</style>
