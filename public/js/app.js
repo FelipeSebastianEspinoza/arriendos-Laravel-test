@@ -2187,79 +2187,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2428,8 +2355,17 @@ __webpack_require__.r(__webpack_exports__);
       if (this.nameReverse == false) {
         this.categorias.sort(function (a, b) {
           if (atributo == "name") {
-            var x = a.name.toLowerCase();
-            var y = b.name.toLowerCase();
+            if (a.name == null) {
+              var x = "0";
+            } else {
+              var x = a.name.toLowerCase();
+            }
+
+            if (b.name == null) {
+              var y = "0";
+            } else {
+              var y = b.name.toLowerCase();
+            }
 
             if (x < y) {
               return -1;
@@ -2439,8 +2375,17 @@ __webpack_require__.r(__webpack_exports__);
               return 1;
             }
           } else if (atributo == "description") {
-            var x = a.description.toLowerCase();
-            var y = b.description.toLowerCase();
+            if (a.description == null) {
+              var x = "0";
+            } else {
+              var x = a.description.toLowerCase();
+            }
+
+            if (b.description == null) {
+              var y = "0";
+            } else {
+              var y = b.description.toLowerCase();
+            }
 
             if (x < y) {
               return -1;
@@ -2455,8 +2400,17 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         this.categorias.sort(function (a, b) {
           if (atributo == "name") {
-            var x = a.name.toLowerCase();
-            var y = b.name.toLowerCase();
+            if (a.name == null) {
+              var x = "0";
+            } else {
+              var x = a.name.toLowerCase();
+            }
+
+            if (b.name == null) {
+              var y = "0";
+            } else {
+              var y = b.name.toLowerCase();
+            }
 
             if (x > y) {
               return -1;
@@ -2466,8 +2420,17 @@ __webpack_require__.r(__webpack_exports__);
               return 1;
             }
           } else if (atributo == "description") {
-            var x = a.description.toLowerCase();
-            var y = b.description.toLowerCase();
+            if (a.description == null) {
+              var x = "0";
+            } else {
+              var x = a.description.toLowerCase();
+            }
+
+            if (b.description == null) {
+              var y = "0";
+            } else {
+              var y = b.description.toLowerCase();
+            }
 
             if (x > y) {
               return -1;
@@ -38214,7 +38177,7 @@ var render = function() {
   return _c("div", [
     _c("div", [
       _c("h3", [
-        _vm._v("\n                Título\n                "),
+        _vm._v("\n            Título\n            "),
         _c(
           "button",
           {
@@ -38226,7 +38189,7 @@ var render = function() {
             },
             on: { click: _vm.limpiarModal }
           },
-          [_vm._v("\n                    Nueva categoría\n                ")]
+          [_vm._v("\n                Nueva categoría\n            ")]
         )
       ]),
       _vm._v(" "),
@@ -38296,7 +38259,7 @@ var render = function() {
                       _vm.nameInvalid
                         ? _c("p", { staticClass: "text-danger" }, [
                             _vm._v(
-                              "\n                                    Escriba un nombre válido\n                                "
+                              "\n                                Escriba un nombre válido\n                            "
                             )
                           ])
                         : _vm._e(),
@@ -38339,7 +38302,7 @@ var render = function() {
                       _vm.descriptionInvalid
                         ? _c("p", { staticClass: "text-danger" }, [
                             _vm._v(
-                              "\n                                    Escriba un texto más extenso\n                                "
+                              "\n                                Escriba un texto más extenso\n                            "
                             )
                           ])
                         : _vm._e(),
@@ -38381,7 +38344,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                                Editar categoría\n                            "
+                        "\n                            Editar categoría\n                        "
                       )
                     ]
                   ),
@@ -38451,7 +38414,7 @@ var render = function() {
                       _vm.nameInvalid
                         ? _c("p", { staticClass: "text-danger" }, [
                             _vm._v(
-                              "\n                                    Escriba un nombre válido\n                                "
+                              "\n                                Escriba un nombre válido\n                            "
                             )
                           ])
                         : _vm._e(),
@@ -38494,7 +38457,7 @@ var render = function() {
                       _vm.descriptionInvalid
                         ? _c("p", { staticClass: "text-danger" }, [
                             _vm._v(
-                              "\n                                    Escriba un texto más extenso\n                                "
+                              "\n                                Escriba un texto más extenso\n                            "
                             )
                           ])
                         : _vm._e(),
@@ -38507,7 +38470,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                                    Editar\n                                "
+                            "\n                                Editar\n                            "
                           )
                         ]
                       ),
@@ -38521,7 +38484,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                                    Cancelar\n                                "
+                            "\n                                Cancelar\n                            "
                           )
                         ]
                       )
@@ -38736,7 +38699,7 @@ var staticRenderFns = [
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
         [
           _vm._v(
-            "\n                                Añadir categoría\n                            "
+            "\n                            Añadir categoría\n                        "
           )
         ]
       ),
@@ -38768,7 +38731,7 @@ var staticRenderFns = [
         },
         [
           _vm._v(
-            "\n                                        Cerrar\n                                    "
+            "\n                                    Cerrar\n                                "
           )
         ]
       ),
@@ -38778,7 +38741,7 @@ var staticRenderFns = [
         { staticClass: "btn btn-primary", attrs: { type: "submit" } },
         [
           _vm._v(
-            "\n                                        Agregar\n                                    "
+            "\n                                    Agregar\n                                "
           )
         ]
       )
