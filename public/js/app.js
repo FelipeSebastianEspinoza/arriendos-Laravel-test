@@ -3095,8 +3095,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -22626,14 +22624,14 @@ __webpack_require__.r(__webpack_exports__);
     },
     emptyText: {
       type: String,
-      default: 'There are no records to show'
+      default: 'No hay registros.'
     },
     emptyHtml: {
       type: String
     },
     emptyFilteredText: {
       type: String,
-      default: 'There are no records matching your request'
+      default: 'No se han encontrado resultados para tu búsqueda. '
     },
     emptyFilteredHtml: {
       type: String
@@ -82563,7 +82561,7 @@ var render = function() {
                 {
                   staticClass: "mb-0",
                   attrs: {
-                    label: "Filter",
+                    label: "Búsqueda",
                     "label-cols-sm": "3",
                     "label-align-sm": "right",
                     "label-size": "sm",
@@ -82579,7 +82577,7 @@ var render = function() {
                         attrs: {
                           type: "search",
                           id: "filterInput",
-                          placeholder: "Type to Search"
+                          placeholder: "Escriba..."
                         },
                         model: {
                           value: _vm.filter,
@@ -82603,7 +82601,7 @@ var render = function() {
                                 }
                               }
                             },
-                            [_vm._v("Clear")]
+                            [_vm._v("Limpiar")]
                           )
                         ],
                         1
@@ -82627,11 +82625,10 @@ var render = function() {
                 {
                   staticClass: "mb-0",
                   attrs: {
-                    label: "Filter On",
+                    label: "Buscar por:",
                     "label-cols-sm": "3",
                     "label-align-sm": "right",
-                    "label-size": "sm",
-                    description: "Leave all unchecked to filter on all data"
+                    "label-size": "sm"
                   }
                 },
                 [
@@ -82649,16 +82646,14 @@ var render = function() {
                     },
                     [
                       _c("b-form-checkbox", { attrs: { value: "name" } }, [
-                        _vm._v("Name")
+                        _vm._v("Nombre")
                       ]),
                       _vm._v(" "),
-                      _c("b-form-checkbox", { attrs: { value: "age" } }, [
-                        _vm._v("Age")
-                      ]),
-                      _vm._v(" "),
-                      _c("b-form-checkbox", { attrs: { value: "isActive" } }, [
-                        _vm._v("Active")
-                      ])
+                      _c(
+                        "b-form-checkbox",
+                        { attrs: { value: "description" } },
+                        [_vm._v("Descripción")]
+                      )
                     ],
                     1
                   )
@@ -82678,7 +82673,7 @@ var render = function() {
                 {
                   staticClass: "mb-0",
                   attrs: {
-                    label: "Per page",
+                    label: "Mostrar",
                     "label-cols-sm": "6",
                     "label-cols-md": "4",
                     "label-cols-lg": "3",
