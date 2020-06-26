@@ -2449,6 +2449,7 @@ __webpack_require__.r(__webpack_exports__);
     resultQuery: function resultQuery() {
       var _this5 = this;
 
+      // para que no de conflicto el valor a buscar debe ser vacio envez de null en la bd
       if (this.searchQuery) {
         return this.categorias.filter(function (item) {
           return _this5.searchQuery.toLowerCase().split(" ").every(function (v) {

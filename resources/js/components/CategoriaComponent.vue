@@ -504,14 +504,16 @@ export default {
         }
     },
     computed: {
-        resultQuery() {
+        resultQuery() { // para que no de conflicto el valor a buscar debe ser vacio envez de null en la bd
             if (this.searchQuery) {
                 return this.categorias.filter(item => {
                     return this.searchQuery
                         .toLowerCase()
                         .split(" ")
-                        .every(v => item.name.toLowerCase().includes(v));
+                        .every(v => 
+                        item.name.toLowerCase().includes(v));
                 });
+                 
             } else {
                 return this.categorias;
             }
