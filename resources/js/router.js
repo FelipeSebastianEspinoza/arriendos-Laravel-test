@@ -4,6 +4,9 @@ import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
 import TareaComponent from "./components/TareasComponent.vue";
+import ComentariosComponent from "./components/ComentariosComponent.vue";
+
+
 
 const router = new VueRouter({
     mode: "history",
@@ -12,7 +15,13 @@ const router = new VueRouter({
             path: "/",
             name: "home",
             component: TareaComponent
+        },
+        {
+            path: "/comments",
+            name: "comentarios",
+            component: ComentariosComponent
         }
+        
     ]
 });
 

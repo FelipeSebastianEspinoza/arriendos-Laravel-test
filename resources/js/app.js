@@ -9,6 +9,7 @@ Vue.use(Vuex)
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('tareas-component', require('./components/TareasComponent.vue').default);
+Vue.component('comentarios-component', require('./components/ComentariosComponent.vue').default);
 
  
  
