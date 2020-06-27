@@ -57,7 +57,7 @@
                 </b-form-group>
             </b-col>
 
-            <b-col sm="5" md="6" class="my-1">
+            <b-col v-if="this.categorias.length > 5" sm="5" md="6" class="my-1">
                 <b-form-group
                     label="Mostrar"
                     label-cols-sm="6"
@@ -77,7 +77,7 @@
                 </b-form-group>
             </b-col>
 
-            <b-col sm="7" md="6" class="my-1">
+            <b-col v-if="this.categorias.length > 5" sm="7" md="6" class="my-1">
                 <b-pagination
                     v-model="currentPage"
                     :total-rows="totalRows"
@@ -156,7 +156,9 @@
             </template>
         </b-table>
         <b-form-group label="Opciones" label-cols-lg="2">
-            <b-form-checkbox v-model="striped" inline>Interlineado</b-form-checkbox>
+            <b-form-checkbox v-model="striped" inline
+                >Interlineado</b-form-checkbox
+            >
             <b-form-checkbox v-model="bordered" inline
                 >Cuadricula</b-form-checkbox
             >

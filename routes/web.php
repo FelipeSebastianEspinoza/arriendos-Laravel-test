@@ -2,18 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
  
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Auth::routes();
-
-Route::resource('/notas', 'NotaController')->middleware('auth');
-
-Route::resource('/categorias', 'CategoriaController')->middleware('auth');
+Route::resource('/categorias', 'CategoriaController') ;
 
 
-
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/{any}', function(){
+    return view('spa');
+})->where('any','.*');
